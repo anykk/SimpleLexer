@@ -3,11 +3,11 @@ package core;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class DoubleReader implements IReader{
+public class VectorReader implements IReader {
     private Pattern pattern;
 
-    public DoubleReader() {
-        pattern = Pattern.compile("-?\\d+.\\d+");
+    public VectorReader() {
+        pattern = Pattern.compile("\\((\\s?-?\\d+,\\s?)+\\s?-?\\d+\\s?\\)");
     }
 
     @Override
@@ -15,6 +15,6 @@ public class DoubleReader implements IReader{
         Matcher matcher = pattern.matcher(string);
 
         if (!matcher.lookingAt()) return new Token("", "");
-        return new Token(matcher.group(), "DOUBLE");
+        return new Token(matcher.group(), "VECTOR");
     }
 }
