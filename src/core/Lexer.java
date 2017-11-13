@@ -19,13 +19,13 @@ public class Lexer {
             Token maxToken = new Token("", "");
             for (IReader reader : readers) {
                 Token currentToken = reader.tryRead(input);
-                if (maxToken.length() < currentToken.length())
+                if (maxToken.getLength() < currentToken.getLength())
                     maxToken = currentToken;
             }
             if (maxToken.getValue().equals(""))
                 throw new RuntimeException("Can't read token");
             tokens.add(maxToken);
-            input = input.substring(maxToken.length());
+            input = input.substring(maxToken.getLength());
         }
         return tokens;
     }

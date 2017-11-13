@@ -1,21 +1,21 @@
 package core;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class OperationsReader implements IReader {
-    private char[] abc = new char[] {'+', '-', '/', '*', '\\'};
+    private Pattern pattern;
+
+    public OperationsReader() {
+        pattern = Pattern.compile("[-+*/]+");
+    }
 
     @Override
     public Token tryRead(String string) {
-        int i = 0;
-        while (i < string.length() && isOperation(string.charAt(i)))
-            i++;
-        return (i == 0) ? new Token("", "") : new Token(string.substring(0, i), "OPERATION");
-    }
+        Matcher matcher = pattern.matcher(string);
 
-    private boolean isOperation(char c) {
-        for (char operation : abc)
-            if (operation == c)
-                return true;
-        return false;
+        if (!matcher.lookingAt()) return new Token("", "");
+        return new Token(matcher.group(), "OPERATION");
     }
 }
 

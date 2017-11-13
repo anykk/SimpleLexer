@@ -11,8 +11,18 @@ public class Token {
         this.length = value.length();
     }
 
-    public int length() {
+    public int getLength() {
         return length;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Token other = (Token)obj;
+        return this.toString().equals(other.toString());
     }
 
     public String getValue() {
@@ -23,4 +33,5 @@ public class Token {
     public String toString() {
         return type + ":" + value;
     }
+
 }

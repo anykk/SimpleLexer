@@ -1,13 +1,21 @@
 package core;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class WhitespaceReader implements IReader {
+    private Pattern pattern;
+
+    public WhitespaceReader() {
+        pattern = Pattern.compile("\\s+");
+    }
 
     @Override
     public Token tryRead(String string) {
-        int i = 0;
-        while (i < string.length() && Character.isWhitespace(string.charAt(i)))
-            i++;
-        return (i == 0) ? new Token("", "") : new Token(string.substring(0, i),"WHITESPACE");
+        Matcher matcher = pattern.matcher(string);
+
+        if (!matcher.lookingAt()) return new Token("", "");
+        return new Token(matcher.group(), "WHITESPACE");
     }
 }
 
