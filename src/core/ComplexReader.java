@@ -3,11 +3,11 @@ package core;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class OperationsReader implements IReader {
+public class ComplexReader implements IReader {
     private Pattern pattern;
 
-    public OperationsReader() {
-        pattern = Pattern.compile("[-+*/]");
+    public ComplexReader() {
+        pattern = Pattern.compile("(\\d+)?\\s?[+-]?\\s?(\\d+)?i");
     }
 
     @Override
@@ -15,7 +15,6 @@ public class OperationsReader implements IReader {
         Matcher matcher = pattern.matcher(string);
 
         if (!matcher.lookingAt()) return new Token("", "");
-        return new Token(matcher.group(), "OPERATION");
+        return new Token(matcher.group(), "COMPLEX");
     }
 }
-

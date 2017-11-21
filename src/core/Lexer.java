@@ -14,18 +14,22 @@ public class Lexer {
     }
 
     public ArrayList<Token> tokenize(String input) {
+        Token maxToken = null;
         ArrayList<Token> tokens = new ArrayList<>();
-        for(int i = 0; i < input.length();) {
-            Token maxToken = new Token("", "");
+        for (int i = 0; i < input.length();) {
+            int maxLength = 0;
             for (IReader reader : readers) {
                 Token currentToken = reader.tryRead(input);
-                if (maxToken.getLength() < currentToken.getLength())
+                if (maxLength < currentToken.getLength()) {
+                    maxLength = currentToken.getLength();
                     maxToken = currentToken;
+                }
             }
-            if (maxToken.getValue().equals(""))
+            if (maxLength == 0) {
                 throw new RuntimeException("Can't read token");
+            }
             tokens.add(maxToken);
-            input = input.substring(maxToken.getLength());
+            input = input.substring(maxLength);
         }
         return tokens;
     }

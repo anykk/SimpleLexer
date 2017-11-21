@@ -7,7 +7,7 @@ public class VectorReader implements IReader {
     private Pattern pattern;
 
     public VectorReader() {
-        pattern = Pattern.compile("\\((\\s?-?\\d+,\\s?)+\\s?-?\\d+\\s?\\)");
+        pattern = Pattern.compile("[\\[{(<](\\s?-?\\d+,\\s?)+\\s?-?\\d+\\s?[]})>]");
     }
 
     @Override
