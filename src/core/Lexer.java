@@ -20,9 +20,11 @@ public class Lexer {
             int maxLength = 0;
             for (IReader reader : readers) {
                 Token currentToken = reader.tryRead(input);
-                if (maxLength < currentToken.getLength()) {
-                    maxLength = currentToken.getLength();
-                    maxToken = currentToken;
+                if (currentToken != null) {
+                    if (maxLength < currentToken.getLength()) {
+                        maxLength = currentToken.getLength();
+                        maxToken = currentToken;
+                    }
                 }
             }
             if (maxLength == 0) {

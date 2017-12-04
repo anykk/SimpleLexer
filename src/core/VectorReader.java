@@ -14,7 +14,7 @@ public class VectorReader implements IReader {
     public Token tryRead(String string) {
         Matcher matcher = pattern.matcher(string);
 
-        if (!matcher.lookingAt()) return new Token("", "");
+        if (!matcher.lookingAt()) return null;
         return new Token(matcher.group(), "VECTOR");
     }
 }
